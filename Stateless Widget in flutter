@@ -1,0 +1,24 @@
+A StatelessWidget in Flutter is a widget that will always have the same appearance during its lifetime. It doesn't change dynamically based on user interactions or data changes. In other words, a StatelessWidget is a widget that has no mutable state.
+
+To create a StatelessWidget, you simply extend the StatelessWidget class and implement the build method. The build method returns the widget tree that represents the widget's appearance.
+
+For example, here's a simple StatelessWidget that displays a text:
+
+kotlin
+Copy code
+class TextDisplayWidget extends StatelessWidget {
+  final String text;
+
+  TextDisplayWidget({this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(fontSize: 22),
+    );
+  }
+}
+In this example, TextDisplayWidget is a StatelessWidget that takes a text parameter and displays it. Because this widget has no mutable state, it can be optimized by the Flutter framework, as it can be cached and reused as needed.
+
+In general, you should use StatelessWidget whenever possible, as it leads to better performance and makes your code easier to maintain. Only use StatefulWidget when you need to have mutable state in your widget.
