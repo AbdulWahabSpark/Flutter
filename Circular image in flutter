@@ -1,0 +1,75 @@
+Use ClipRRect it will work perfectly.
+
+ClipRRect(
+    borderRadius: BorderRadius.circular(8.0),
+    child: Image.network(
+        subject['images']['large'],
+        height: 150.0,
+        width: 100.0,
+    ),
+)
+
+*****
+
+CircleAvatar(
+  radius: 48, // Image radius
+  backgroundImage: NetworkImage('imageUrl'),
+)
+
+******
+
+ClipOval(
+  child: SizedBox.fromSize(
+    size: Size.fromRadius(48), // Image radius
+    child: Image.network('imageUrl', fit: BoxFit.cover),
+  ),
+)
+
+*******
+
+Using CircleAvatar:
+CircleAvatar(
+  radius: 56,
+  backgroundColor: Colors.red,
+  child: Padding(
+    padding: const EdgeInsets.all(8), // Border radius
+    child: ClipOval(child: Image.network('imageUrl')),
+  ),
+)
+Using ClipRRect:
+Container(
+  padding: EdgeInsets.all(8), // Border width
+  decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+  child: ClipOval(
+    child: SizedBox.fromSize(
+      size: Size.fromRadius(48), // Image radius
+      child: Image.network('imageUrl', fit: BoxFit.cover),
+    ),
+  ),
+)
+3. Rounded image (without border)
+enter image description here
+
+ClipRRect(
+  borderRadius: BorderRadius.circular(20), // Image border
+  child: SizedBox.fromSize(
+    size: Size.fromRadius(48), // Image radius
+    child: Image.network('imageUrl', fit: BoxFit.cover),
+  ),
+)
+4. Rounded image (with border)
+enter image description here
+
+final borderRadius = BorderRadius.circular(20); // Image border
+
+Container(
+  padding: EdgeInsets.all(8), // Border width
+  decoration: BoxDecoration(color: Colors.red, borderRadius: borderRadius),
+  child: ClipRRect(
+    borderRadius: borderRadius,
+    child: SizedBox.fromSize(
+      size: Size.fromRadius(48), // Image radius
+      child: Image.network('imageUrl', fit: BoxFit.cover),
+    ),
+  ),
+)
