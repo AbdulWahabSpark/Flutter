@@ -1,0 +1,41 @@
+import 'package:ashleysleepelite/pages/claim_detail_page.dart';
+import 'package:ashleysleepelite/pages/dashboard_page.dart';
+import 'package:ashleysleepelite/pages/sign_in_page.dart';
+import 'package:ashleysleepelite/pages/splash_page.dart';
+import 'package:ashleysleepelite/pages/welcome_page.dart';
+import 'package:ashleysleepelite/utils/constants.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'blocs/BlocCounter.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<BlocCounter>(
+      create: (context) => BlocCounter(),
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const SplashScreen(),
+        routes: <String, WidgetBuilder>{
+          SPLASH_SCREEN: (BuildContext context) => const SplashScreen(),
+          WELCOME_SCREEN: (BuildContext context) => WelcomePage(),
+          LOGIN_SCREEN: (BuildContext context) => SignInPage(),
+          DASHBOARD_SCREEN: (BuildContext context) => DashboardPage(),
+          CLAIMDETAIL_SCREEN: (BuildContext context) => ClaimDetailPage()
+        },
+      ),
+    );
+  }
+}
+
+*********** To Navigate
+void navigationPage() {
+    Navigator.of(context).pushReplacementNamed(WELCOME_SCREEN);
+  }
