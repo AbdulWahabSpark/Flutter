@@ -1,0 +1,13 @@
+Theme(
+                                    data: ThemeData(
+                                      unselectedWidgetColor: Colors.grey,
+                                    ),
+                                    child: Radio<bool>(
+                                      value: isSplit!,
+                                      groupValue: false,
+                                      activeColor: Colors.white,
+                                      onChanged: (bool? value) {
+                                        isSplit = !value!;
+                                      },
+                                    ),
+                                  )
