@@ -1,0 +1,9 @@
+clipBehavior: Clip.antiAlias, //  add clipBehavior 
+
+Dialog(
+                      backgroundColor: kTextColor,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                      clipBehavior: Clip.antiAlias, //  add clipBehavior
+                      child: SingleChildScrollView(
+                        child: Column(
