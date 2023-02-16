@@ -1,0 +1,35 @@
+Using Ellipsis
+
+Text(
+  "This is a long text",
+  overflow: TextOverflow.ellipsis,
+),
+enter image description here
+
+Using Fade
+
+Text(
+  "This is a long text",
+  overflow: TextOverflow.fade,
+  maxLines: 1,
+  softWrap: false,
+),
+enter image description here
+
+Using Clip
+
+Text(
+  "This is a long text",
+  overflow: TextOverflow.clip,
+  maxLines: 1,
+  softWrap: false,
+),
+enter image description here
+
+Note:
+
+If you are using Text inside a Row, you can put above Text inside Expanded like:
+
+Expanded(
+  child: AboveText(),
+)
