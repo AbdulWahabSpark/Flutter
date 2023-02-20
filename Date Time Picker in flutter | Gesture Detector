@@ -1,0 +1,82 @@
+GestureDetector(
+                                      onTap: () async {
+                                        showDatePicker(
+                                            context: context,
+                                            initialDate: _selectedDate!,
+                                            firstDate: DateTime(1950),
+                                            lastDate: DateTime
+                                                .now())
+                                            .then((pickedDate) {
+                                          if (pickedDate == null) {
+                                            //if user tap cancel then this function will stop
+                                            return;
+                                          }
+                                          setState(() {
+                                            //for rebuilding the ui
+                                            _selectedDate = pickedDate;
+                                            print("pickedDate:: ${pickedDate}");
+                                          });
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 54.0,
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(12.0)),
+                                            color: Colors.white
+                                        ),
+                                        margin: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children:  [
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/invoice_date-ic.png'),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const Text('Invoice Date',
+                                                  style: TextStyle (
+                                                      color: Colors.black,
+                                                      fontSize: 14.0,
+                                                      fontWeight: FontWeight.w700
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets.fromLTRB(0.0,
+                                                      4.0, 0.0, 0.0),
+                                                  width:
+                                                  MediaQuery.of(context).size.width * 0.60,
+                                                  height: 18.0,
+                                                  child: Text('${_selectedDate}',
+                                                    style: const TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 14.0,
+                                                        fontWeight: FontWeight.w400
+                                                    ),
+                                                  ),
+                                                  /*TextField (
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                    keyboardType: TextInputType.text,
+                                                    textInputAction: TextInputAction.next,
+                                                    decoration: const
+                                                    InputDecoration.collapsed(
+                                                      hintText: 'Invoice Date',
+                                                      hintStyle: kBodyTextGrey15,
+                                                      border: InputBorder.none,
+                                                    ),
+                                                  ),*/
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
