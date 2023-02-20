@@ -42,5 +42,45 @@ Bloc: A bloc uses an event to trigger a state change. Blocs are event receivers 
 class AuthBloc extends Bloc < AuthEvent, AuthState > {
   AuthBloc(): super(UnAuthenticatedState());
 }
+
+
+To emit a new state, you need to handle triggered events. To do this, you will have to register an event handler using the on <Event> API inside the constructor body as follows;
+
+AuthBloc(): super(UnAuthenticatedState()) {
+  on < LoginEvent > ((event, emit) {
+    emit(AuthenticatedState());
+  });
+
+  on < LogoutEvent > ((event, emit) {
+    emit(UnAuthenticatedState());
+  });
+}
+
+
+Note: Blocs should never emit new states directly, rather every state change should be emitted from the EventHandler.
+
+Cubit: A cubit is a class that manages any kind of state by exposing functions that can be evoked to trigger state changes. Unlike a bloc, a cubit doesn’t use events to trigger state changes. Instead it exposes functions to trigger the state changes.
+
+cubit
+
+Cubit is created by extending the cubit generic class and defining the state like this;
+
+1
+2
+3
+class AuthCubit extends Cubit < AuthState > {
+  AuthCubit(): super(UnAuthenticatedState());
+}
+To emit a new state, you will have to call a function on the cubit object, each cubit can emit a new state using the emit method as follows;
+
+1
+2
+3
+  AuthCubit(): super(UnAuthenticatedState());
+  void login() => emit(AuthenticatedState());
+  void logout() => emit(UnAuthenticatedState());
+Note: Because the emit method is protected, it should only be used within a cubit.
+
+
 **********
 
