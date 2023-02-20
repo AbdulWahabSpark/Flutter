@@ -1,0 +1,14 @@
+91
+
+
+Add intl package to your pubspec.yaml file.
+
+import 'package:intl/intl.dart';
+
+DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+Converting DateTime object to String
+
+String string = dateFormat.format(DateTime.now());
+Converting String to DateTime object
+
+DateTime dateTime = dateFormat.parse("2019-07-19 8:40:23");
