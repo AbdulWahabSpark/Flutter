@@ -1,0 +1,46 @@
+BLoC is an acronym for business logic components. The Flutter BLoC package makes it easy to implement the bloc pattern recommended by Google (Google I/O 2018).
+
+BLoC was created with three guiding principles in mind:
+
+Simple: It’s simple to grasp and can be used by developers of all skill levels.
+
+Powerful: Assist in the creation of remarkable, sophisticated applications by breaking them down into smaller components.
+
+Testable: We can easily test every part of an application so we can confidently iterate.
+
+There are four main layers of application in the BLoC pattern:
+
+
+UI. The UI contains all of the application’s components that the user can see and interact with.
+
+BLoC. The bloc is the layer between the data and the UI components. The bloc receives events from an external source and emits a state in response to the received event.
+
+Repository. The repository is designed to be the single source of truth, it is responsible for organizing data from the data source(s) to be presented by the UI.
+
+Data providers. The data providers are responsible for fetching the application data, they are characterized by network calls and database interactions.
+
+*********
+
+Events: Events are input to a bloc, they’re usually added as a result of user activities like button pushes, or lifecycle events like page loads. You can model your event as anything, from a primitive data type, such as an integer, to any complex abstracted classes.
+
+1
+2
+3
+abstract class AuthEvent {}
+class LoginEvent extends AuthEvent {}
+class LogoutEvent extends AuthEvent {}
+States: States are an output of a bloc, they represent the application state. The UI components listen to a state change and redraw a portion of themselves based on the current state. The state can also be modeled as anything from a primitive data type, such as an integer, to any complex abstracted classes.
+
+1
+2
+3
+abstract class AuthState {}
+class UnAuthenticatedState extends AuthState {}
+class AuthenticatedState extends AuthState {}
+Bloc: A bloc uses an event to trigger a state change. Blocs are event receivers that turn incoming events into outgoing states.
+
+class AuthBloc extends Bloc < AuthEvent, AuthState > {
+  AuthBloc(): super(UnAuthenticatedState());
+}
+**********
+
