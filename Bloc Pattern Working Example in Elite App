@@ -1,0 +1,2767 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import '../utils/constants.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+/**
+    DateTimeEvent
+ **////
+abstract class DateTimeEvent {}
+class _DateTime extends DateTimeEvent {
+  DateTime? slectedDate = DateTime.now();
+  _DateTime(this.slectedDate){}
+}
+class DateTimeState {
+  DateTime? slectedDate = DateTime.now();
+  DateTimeState(this.slectedDate){}
+}
+
+class DateTimeBloc extends Bloc<DateTimeEvent, DateTimeState> {
+  DateTime? slectedDate = DateTime.now();
+  DateTimeBloc() : super(DateTimeState(DateTime.now())) {
+    on<_DateTime>(mapEventToState);
+  }
+  void mapEventToState(DateTimeEvent event, Emitter<DateTimeState> emit) async {
+    if (event is _DateTime) {
+      slectedDate = event.slectedDate;
+    }
+    /*(event, emit) => */emit(DateTimeState(slectedDate));
+  }
+  }
+
+/**
+Dashboard Page
+ **////
+
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({Key? key}) : super(key: key);
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  bool? isSplit = false;
+  DateTime? _selectedDate = DateTime.now();
+  DateFormat dateFormat = DateFormat("mm-dd-yyyy");//DateFormat("yyyy-MM-dd HH:mm:ss");
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+              elevation: 0.0,
+              backgroundColor: kTextColor,
+              child: const Icon(Icons.add),
+              onPressed: () {
+                showDialog(context: context, builder: (context){
+                      return Dialog(
+                        backgroundColor: kTextColor,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                        clipBehavior: Clip.antiAlias, //  add clipBehavior
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: const BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(12.0)),
+                                    color: kTextColor
+                                ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: 48.0,
+                                            padding: const EdgeInsets.all(8.0),
+                                            decoration: const BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.all(Radius.circular(12.0)),
+                                                color: Colors.white
+                                            ),
+                                            margin: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children:  [
+                                                const SizedBox(
+                                                  width: 18.0,
+                                                  height: 18.0,
+                                                  child: Image(
+                                                    image:
+                                                    AssetImage('assets/images/store_blue.png'),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 8.0,),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text('Store State',
+                                                      style: TextStyle (
+                                                          color: Colors.black,
+                                                          fontSize: 12.0,
+                                                          fontWeight: FontWeight.w700
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      margin: const EdgeInsets.fromLTRB(0.0,
+                                                          4.0, 0.0, 0.0),
+                                                      width:
+                                                      MediaQuery.of(context).size.width * 0.24,
+                                                      height: 14.0,
+                                                      child: Text('Store State',
+                                                        style: kBodyTextGrey12.
+                                                        copyWith(color: Colors.black),)
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 48.0,
+                                            padding: const EdgeInsets.all(8.0),
+                                            decoration: const BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.all(Radius.circular(12.0)),
+                                                color: Colors.white
+                                            ),
+                                            margin: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children:  [
+                                                const SizedBox(
+                                                  width: 18.0,
+                                                  height: 18.0,
+                                                  child: Image(
+                                                    image:
+                                                    AssetImage(
+                                                        'assets/images/city_blue.png'),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 8.0,),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text('Store City',
+                                                      style: TextStyle (
+                                                          color: Colors.black,
+                                                          fontSize: 12.0,
+                                                          fontWeight: FontWeight.w700
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      margin: const EdgeInsets.fromLTRB(0.0,
+                                                          4.0, 0.0, 0.0),
+                                                      width:
+                                                      MediaQuery.of(context).size.width * 0.24,
+                                                      height: 14.0,
+                                                        child: Text('City',
+                                                          style: kBodyTextGrey12.
+                                                          copyWith(color: Colors.black),)
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: 48.0,
+                                            padding: const EdgeInsets.all(8.0),
+                                            decoration: const BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.all(Radius.circular(12.0)),
+                                                color: Colors.white
+                                            ),
+                                            margin: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children:  [
+                                                const SizedBox(
+                                                  width: 18.0,
+                                                  height: 18.0,
+                                                  child: Image(
+                                                    image:
+                                                    AssetImage('assets/images/state_blue.png'),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 8.0,),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text('Store',
+                                                      style: TextStyle (
+                                                          color: Colors.black,
+                                                          fontSize: 12.0,
+                                                          fontWeight: FontWeight.w700
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      margin: const EdgeInsets.fromLTRB(0.0,
+                                                          4.0, 0.0, 0.0),
+                                                      width:
+                                                      MediaQuery.of(context).size.width * 0.24,
+                                                      height: 14.0,
+                                                        child: Text('Store',
+                                                          style: kBodyTextGrey12.
+                                                          copyWith(color: Colors.black),)
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Theme(
+                                                data: ThemeData(
+                                                  unselectedWidgetColor: Colors.grey,
+                                                ),
+                                                child: Radio<bool>(
+                                                  value: isSplit!,
+                                                  groupValue: false,
+                                                  activeColor: Colors.white,
+                                                  onChanged: (bool? value) {
+                                                    isSplit = !value!;
+                                                  },
+                                                ),
+                                              ),
+                                              Text('Split Sale',
+                                                style: kBodyTextWhiteBold17.copyWith(color: Colors.white),)
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.fromLTRB(12.0,
+                                            12.0, 12.0, 0.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: const [
+                                            Text('Product Information',
+                                              style: kHeadline22),
+                                            Text('\$0',
+                                              style: kHeadline22)
+                                          ],
+                                        ),
+                                      ),
+                                      const Divider(
+                                          color: Colors.white
+                                      ),
+                                      GestureDetector(
+                                        onTap: (){
+                                          showDialog(context: context,
+                                              builder: (context)
+                                              {
+                                                return Dialog(//  add clipBehavior
+                                                  child: Container(
+                                                    height: 180.0,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: const Text('Username',
+                                                            textAlign: TextAlign.left,
+                                                            style: TextStyle (
+                                                              color: Colors.black,
+                                                              fontSize: 17.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: const Text('Username',
+                                                            textAlign: TextAlign.left,
+                                                            style: TextStyle (
+                                                              color: Colors.black,
+                                                              fontSize: 17.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: const Text('Username',
+                                                            textAlign: TextAlign.left,
+                                                            style: TextStyle (
+                                                              color: Colors.black,
+                                                              fontSize: 17.0,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              });
+                                        },
+                                        child: Container(
+                                          height: 54.0,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: const BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(12.0)),
+                                              color: Colors.white
+                                          ),
+                                          margin: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children:  [
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage('assets/images/name-ic.png'),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8.0,),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text('Name',
+                                                    style: TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 14.0,
+                                                        fontWeight: FontWeight.w700
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: const EdgeInsets.fromLTRB(0.0,
+                                                        4.0, 0.0, 0.0),
+                                                    width:
+                                                    MediaQuery.of(context).size.width * 0.56,
+                                                    height: 18.0,
+                                                    child: Text('Name',
+                                                      style: kBodyTextGrey15.
+                                                      copyWith(color: Colors.black),
+                                                    ),
+                                                    /*TextField (
+                                                      style: kBodyTextGrey15.
+                                                      copyWith(color: Colors.black),
+                                                      keyboardType: TextInputType.text,
+                                                      textInputAction: TextInputAction.next,
+                                                      decoration: const
+                                                      InputDecoration.collapsed(
+                                                        hintText: 'Name',
+                                                        hintStyle: kBodyTextGrey15,
+                                                        border: InputBorder.none,
+                                                      ),
+                                                    ),*/
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage('assets/images/drop-down-ic.png'),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showDialog(context: context,
+                                              builder: (context)
+                                              {
+                                                return Dialog(//  add clipBehavior
+                                                  child: Container(
+                                                    height: 180.0,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: const Text('Username',
+                                                            textAlign: TextAlign.left,
+                                                            style: TextStyle (
+                                                              color: Colors.black,
+                                                              fontSize: 17.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: const Text('Username',
+                                                            textAlign: TextAlign.left,
+                                                            style: TextStyle (
+                                                              color: Colors.black,
+                                                              fontSize: 17.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: const Text('Username',
+                                                            textAlign: TextAlign.left,
+                                                            style: TextStyle (
+                                                              color: Colors.black,
+                                                              fontSize: 17.0,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              });
+                                        },
+                                        child: Container(
+                                          height: 54.0,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: const BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(12.0)),
+                                              color: Colors.white
+                                          ),
+                                          margin: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children:  [
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage('assets/images/product-ic.png'),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8.0,),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text('Product',
+                                                    style: TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 14.0,
+                                                        fontWeight: FontWeight.w700
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: const EdgeInsets.fromLTRB(0.0,
+                                                        4.0, 0.0, 0.0),
+                                                    width:
+                                                    MediaQuery.of(context).size.width * 0.56,
+                                                    height: 18.0,
+                                                    child: Text('Product',
+                                                      style: kBodyTextGrey15.
+                                                      copyWith(color: Colors.black),
+                                                    ),
+                                                    /*TextField (
+                                                      style: kBodyTextGrey15.
+                                                      copyWith(color: Colors.black),
+                                                      keyboardType: TextInputType.text,
+                                                      textInputAction: TextInputAction.next,
+                                                      decoration: const
+                                                      InputDecoration.collapsed(
+                                                        hintText: 'Product',
+                                                        hintStyle: kBodyTextGrey15,
+                                                        border: InputBorder.none,
+                                                      ),
+                                                    ),*/
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage('assets/images/drop-down-ic.png'),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 54.0,
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: const BoxDecoration(
+                                          /*border: Border(
+                                            top: BorderSide(width: 1.0, color: Colors.black),
+                                            bottom: BorderSide(width: 1.0, color: Colors.black),
+                                            left: BorderSide(width: 1.0, color: Colors.black),
+                                            right: BorderSide(width: 1.0, color: Colors.black),
+                                          ),*/
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(12.0)),
+                                            color: Colors.white
+                                        ),
+                                        margin: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children:  [
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/invoice_number-ic.png'),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const Text('Delivered invoice number',
+                                                  style: TextStyle (
+                                                      color: Colors.black,
+                                                      fontSize: 14.0,
+                                                      fontWeight: FontWeight.w700
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets.fromLTRB(0.0,
+                                                      4.0, 0.0, 0.0),
+                                                  width:
+                                                  MediaQuery.of(context).size.width * 0.60,
+                                                  height: 18.0,
+                                                  child: TextField (
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                    keyboardType: TextInputType.text,
+                                                    textInputAction: TextInputAction.next,
+                                                    decoration: const
+                                                    InputDecoration.collapsed(
+                                                      hintText: 'Delivered invoice number',
+                                                      hintStyle: kBodyTextGrey15,
+                                                      border: InputBorder.none,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          showDatePicker(
+                                              context: context,
+                                              initialDate: DateTime.now(),
+                                              firstDate: DateTime(1950),
+                                              lastDate: DateTime
+                                                  .now())
+                                              .then((pickedDate) {
+                                            if (pickedDate == null) {
+                                              //if user tap cancel then
+                                              // this function will stop
+                                              return;
+                                            }
+                                            // setState(() {
+                                              //for rebuilding the ui
+                                              //_selectedDate = pickedDate;
+                                              context.read<DateTimeBloc>().add(
+                                                  _DateTime(pickedDate));
+                                              print("pickedDate:: ${pickedDate}");
+                                            // });
+                                          });
+                                        },
+                                        child: Container(
+                                          height: 54.0,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: const BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(12.0)),
+                                              color: Colors.white
+                                          ),
+                                          margin: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children:  [
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage('assets/images/invoice_date-ic.png'),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8.0,),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text('Invoice Date',
+                                                    style: TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 14.0,
+                                                        fontWeight: FontWeight.w700
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: const EdgeInsets.fromLTRB(0.0,
+                                                        4.0, 0.0, 0.0),
+                                                    width:
+                                                    MediaQuery.of(context).size.width * 0.60,
+                                                    height: 18.0,
+                                                    child: const Text('Invoice Date',
+                                                      style: TextStyle (
+                                                          color: Colors.black,
+                                                          fontSize: 14.0,
+                                                          fontWeight: FontWeight.w400
+                                                      ),
+                                                    ),
+                                                    /*TextField (
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                    keyboardType: TextInputType.text,
+                                                    textInputAction: TextInputAction.next,
+                                                    decoration: const
+                                                    InputDecoration.collapsed(
+                                                      hintText: 'Invoice Date',
+                                                      hintStyle: kBodyTextGrey15,
+                                                      border: InputBorder.none,
+                                                    ),
+                                                  ),*/
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 54.0,
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: const BoxDecoration(
+                                          /*border: Border(
+                                            top: BorderSide(width: 1.0, color: Colors.black),
+                                            bottom: BorderSide(width: 1.0, color: Colors.black),
+                                            left: BorderSide(width: 1.0, color: Colors.black),
+                                            right: BorderSide(width: 1.0, color: Colors.black),
+                                          ),*/
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(12.0)),
+                                            color: Colors.white
+                                        ),
+                                        margin: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children:  [
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/quantity-ic.png'),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const Text('Quantity shipped',
+                                                  style: TextStyle (
+                                                      color: Colors.black,
+                                                      fontSize: 14.0,
+                                                      fontWeight: FontWeight.w700
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets.fromLTRB(0.0,
+                                                      4.0, 0.0, 0.0),
+                                                  width:
+                                                  MediaQuery.of(context).size.width * 0.60,
+                                                  height: 18.0,
+                                                  child: TextField (
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                    keyboardType: TextInputType.text,
+                                                    textInputAction: TextInputAction.next,
+                                                    decoration: const
+                                                    InputDecoration.collapsed(
+                                                      hintText: 'Quantity shipped',
+                                                      hintStyle: kBodyTextGrey15,
+                                                      border: InputBorder.none,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 42.0,
+                                            decoration: const BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(24.0)),
+                                              color: kButtonColor,
+                                            ),
+                                            margin: const EdgeInsets.fromLTRB(0.0, 8.0, 4.0, 0.0),
+                                            padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
+                                            child: TextButton(
+                                              style: ButtonStyle(
+                                                overlayColor:
+                                                MaterialStateProperty.resolveWith(
+                                                      (states) => Colors.black12,
+                                                ),
+                                              ),
+                                              onPressed: (){},
+                                              child: Text(
+                                                'Save & Add New',
+                                                style: kBodyTextWhite.copyWith(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 42.0,
+                                            width: MediaQuery.of(context).size.width * 0.30,
+                                            margin: const EdgeInsets.fromLTRB(4.0, 8.0, 0.0, 0.0),
+                                            padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
+                                            decoration: const BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.all(Radius.circular(24.0)),
+                                                color: kBackgroundColor,
+                                            ),
+                                            child: TextButton(
+                                              style: ButtonStyle(
+                                                overlayColor:
+                                                MaterialStateProperty.resolveWith(
+                                                      (states) => Colors.black12,
+                                                ),
+                                              ),
+                                              onPressed: (){},
+                                              child: Text(
+                                                'Save',
+                                                style: kBodyTextWhite.copyWith(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: const BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(12.0)),
+                                    color: kTextColor
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 48.0,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: const BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(12.0)),
+                                              color: Colors.white
+                                          ),
+                                          margin: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children:  [
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage('assets/images/store_blue.png'),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8.0,),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text('Store State',
+                                                    style: TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w700
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                      margin: const EdgeInsets.fromLTRB(0.0,
+                                                          4.0, 0.0, 0.0),
+                                                      width:
+                                                      MediaQuery.of(context).size.width * 0.24,
+                                                      height: 14.0,
+                                                      child: Text('Store State',
+                                                        style: kBodyTextGrey12.
+                                                        copyWith(color: Colors.black),)
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 48.0,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: const BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(12.0)),
+                                              color: Colors.white
+                                          ),
+                                          margin: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children:  [
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage(
+                                                      'assets/images/city_blue.png'),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8.0,),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text('Store City',
+                                                    style: TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w700
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                      margin: const EdgeInsets.fromLTRB(0.0,
+                                                          4.0, 0.0, 0.0),
+                                                      width:
+                                                      MediaQuery.of(context).size.width * 0.24,
+                                                      height: 14.0,
+                                                      child: Text('City',
+                                                        style: kBodyTextGrey12.
+                                                        copyWith(color: Colors.black),)
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 48.0,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: const BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(12.0)),
+                                              color: Colors.white
+                                          ),
+                                          margin: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children:  [
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage('assets/images/state_blue.png'),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8.0,),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text('Store',
+                                                    style: TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w700
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                      margin: const EdgeInsets.fromLTRB(0.0,
+                                                          4.0, 0.0, 0.0),
+                                                      width:
+                                                      MediaQuery.of(context).size.width * 0.24,
+                                                      height: 14.0,
+                                                      child: Text('Store',
+                                                        style: kBodyTextGrey12.
+                                                        copyWith(color: Colors.black),)
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Theme(
+                                              data: ThemeData(
+                                                unselectedWidgetColor: Colors.grey,
+                                              ),
+                                              child: Radio<bool>(
+                                                value: isSplit!,
+                                                groupValue: false,
+                                                activeColor: Colors.white,
+                                                onChanged: (bool? value) {
+                                                  isSplit = !value!;
+                                                },
+                                              ),
+                                            ),
+                                            Text('Split Sale',
+                                              style: kBodyTextWhiteBold17.copyWith(color: Colors.white),)
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.fromLTRB(12.0,
+                                          12.0, 12.0, 0.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: const [
+                                          Text('Product Information',
+                                              style: kHeadline22),
+                                          Text('\$0',
+                                              style: kHeadline22)
+                                        ],
+                                      ),
+                                    ),
+                                    const Divider(
+                                        color: Colors.white
+                                    ),
+                                    GestureDetector(
+                                      onTap: (){
+                                        showDialog(context: context,
+                                            builder: (context)
+                                            {
+                                              return Dialog(//  add clipBehavior
+                                                child: Container(
+                                                  height: 180.0,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                      },
+                                      child: Container(
+                                        height: 54.0,
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(12.0)),
+                                            color: Colors.white
+                                        ),
+                                        margin: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children:  [
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/name-ic.png'),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const Text('Name',
+                                                  style: TextStyle (
+                                                      color: Colors.black,
+                                                      fontSize: 14.0,
+                                                      fontWeight: FontWeight.w700
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets.fromLTRB(0.0,
+                                                      4.0, 0.0, 0.0),
+                                                  width:
+                                                  MediaQuery.of(context).size.width * 0.56,
+                                                  height: 18.0,
+                                                  child: Text('Name',
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                  ),
+                                                  /*TextField (
+                                                      style: kBodyTextGrey15.
+                                                      copyWith(color: Colors.black),
+                                                      keyboardType: TextInputType.text,
+                                                      textInputAction: TextInputAction.next,
+                                                      decoration: const
+                                                      InputDecoration.collapsed(
+                                                        hintText: 'Name',
+                                                        hintStyle: kBodyTextGrey15,
+                                                        border: InputBorder.none,
+                                                      ),
+                                                    ),*/
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/drop-down-ic.png'),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: (){
+                                        showDialog(context: context,
+                                            builder: (context)
+                                            {
+                                              return Dialog(//  add clipBehavior
+                                                child: Container(
+                                                  height: 180.0,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                      },
+                                      child: Container(
+                                        height: 54.0,
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(12.0)),
+                                            color: Colors.white
+                                        ),
+                                        margin: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children:  [
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/product-ic.png'),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const Text('Product',
+                                                  style: TextStyle (
+                                                      color: Colors.black,
+                                                      fontSize: 14.0,
+                                                      fontWeight: FontWeight.w700
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets.fromLTRB(0.0,
+                                                      4.0, 0.0, 0.0),
+                                                  width:
+                                                  MediaQuery.of(context).size.width * 0.56,
+                                                  height: 18.0,
+                                                  child: Text('Product',
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                  ),
+                                                  /*TextField (
+                                                      style: kBodyTextGrey15.
+                                                      copyWith(color: Colors.black),
+                                                      keyboardType: TextInputType.text,
+                                                      textInputAction: TextInputAction.next,
+                                                      decoration: const
+                                                      InputDecoration.collapsed(
+                                                        hintText: 'Product',
+                                                        hintStyle: kBodyTextGrey15,
+                                                        border: InputBorder.none,
+                                                      ),
+                                                    ),*/
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/drop-down-ic.png'),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 54.0,
+                                      padding: const EdgeInsets.all(8.0),
+                                      decoration: const BoxDecoration(
+                                        /*border: Border(
+                                            top: BorderSide(width: 1.0, color: Colors.black),
+                                            bottom: BorderSide(width: 1.0, color: Colors.black),
+                                            left: BorderSide(width: 1.0, color: Colors.black),
+                                            right: BorderSide(width: 1.0, color: Colors.black),
+                                          ),*/
+                                          borderRadius:
+                                          BorderRadius.all(Radius.circular(12.0)),
+                                          color: Colors.white
+                                      ),
+                                      margin: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children:  [
+                                          const SizedBox(
+                                            width: 18.0,
+                                            height: 18.0,
+                                            child: Image(
+                                              image:
+                                              AssetImage('assets/images/invoice_number-ic.png'),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8.0,),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Text('Delivered invoice number',
+                                                style: TextStyle (
+                                                    color: Colors.black,
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.w700
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: const EdgeInsets.fromLTRB(0.0,
+                                                    4.0, 0.0, 0.0),
+                                                width:
+                                                MediaQuery.of(context).size.width * 0.60,
+                                                height: 18.0,
+                                                child: TextField (
+                                                  style: kBodyTextGrey15.
+                                                  copyWith(color: Colors.black),
+                                                  keyboardType: TextInputType.text,
+                                                  textInputAction: TextInputAction.next,
+                                                  decoration: const
+                                                  InputDecoration.collapsed(
+                                                    hintText: 'Delivered invoice number',
+                                                    hintStyle: kBodyTextGrey15,
+                                                    border: InputBorder.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime(1950),
+                                            lastDate: DateTime
+                                                .now())
+                                            .then((pickedDate) {
+                                          if (pickedDate == null) {
+                                            //if user tap cancel then this function will stop
+                                            return;
+                                          }
+                                          setState(() {
+                                            //for rebuilding the ui
+                                            //_selectedDate = pickedDate;
+                                            print("pickedDate:: ${pickedDate}");
+                                          });
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 54.0,
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(12.0)),
+                                            color: Colors.white
+                                        ),
+                                        margin: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children:  [
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/invoice_date-ic.png'),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const Text('Invoice Date',
+                                                  style: TextStyle (
+                                                      color: Colors.black,
+                                                      fontSize: 14.0,
+                                                      fontWeight: FontWeight.w700
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets.fromLTRB(0.0,
+                                                      4.0, 0.0, 0.0),
+                                                  width:
+                                                  MediaQuery.of(context).size.width * 0.60,
+                                                  height: 18.0,
+                                                  child: const Text('Invoice Date',
+                                                    style: TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 14.0,
+                                                        fontWeight: FontWeight.w400
+                                                    ),
+                                                  ),
+                                                  /*TextField (
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                    keyboardType: TextInputType.text,
+                                                    textInputAction: TextInputAction.next,
+                                                    decoration: const
+                                                    InputDecoration.collapsed(
+                                                      hintText: 'Invoice Date',
+                                                      hintStyle: kBodyTextGrey15,
+                                                      border: InputBorder.none,
+                                                    ),
+                                                  ),*/
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 54.0,
+                                      padding: const EdgeInsets.all(8.0),
+                                      decoration: const BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.all(Radius.circular(12.0)),
+                                          color: Colors.white
+                                      ),
+                                      margin: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children:  [
+                                          const SizedBox(
+                                            width: 18.0,
+                                            height: 18.0,
+                                            child: Image(
+                                              image:
+                                              AssetImage('assets/images/quantity-ic.png'),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8.0,),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Text('Quantity shipped',
+                                                style: TextStyle (
+                                                    color: Colors.black,
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.w700
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: const EdgeInsets.fromLTRB(0.0,
+                                                    4.0, 0.0, 0.0),
+                                                width:
+                                                MediaQuery.of(context).size.width * 0.60,
+                                                height: 18.0,
+                                                child: TextField (
+                                                  style: kBodyTextGrey15.
+                                                  copyWith(color: Colors.black),
+                                                  keyboardType: TextInputType.text,
+                                                  textInputAction: TextInputAction.next,
+                                                  decoration: const
+                                                  InputDecoration.collapsed(
+                                                    hintText: 'Quantity shipped',
+                                                    hintStyle: kBodyTextGrey15,
+                                                    border: InputBorder.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 42.0,
+                                          decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(24.0)),
+                                            color: kButtonColor,
+                                          ),
+                                          margin: const EdgeInsets.fromLTRB(0.0, 8.0, 4.0, 0.0),
+                                          padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
+                                          child: TextButton(
+                                            style: ButtonStyle(
+                                              overlayColor:
+                                              MaterialStateProperty.resolveWith(
+                                                    (states) => Colors.black12,
+                                              ),
+                                            ),
+                                            onPressed: (){},
+                                            child: Text(
+                                              'Save & Add New',
+                                              style: kBodyTextWhite.copyWith(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 42.0,
+                                          width: MediaQuery.of(context).size.width * 0.30,
+                                          margin: const EdgeInsets.fromLTRB(4.0, 8.0, 0.0, 0.0),
+                                          padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
+                                          decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(24.0)),
+                                            color: kBackgroundColor,
+                                          ),
+                                          child: TextButton(
+                                            style: ButtonStyle(
+                                              overlayColor:
+                                              MaterialStateProperty.resolveWith(
+                                                    (states) => Colors.black12,
+                                              ),
+                                            ),
+                                            onPressed: (){},
+                                            child: Text(
+                                              'Save',
+                                              style: kBodyTextWhite.copyWith(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: const BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(12.0)),
+                                    color: kTextColor
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 48.0,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: const BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(12.0)),
+                                              color: Colors.white
+                                          ),
+                                          margin: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children:  [
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage('assets/images/store_blue.png'),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8.0,),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text('Store State',
+                                                    style: TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w700
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                      margin: const EdgeInsets.fromLTRB(0.0,
+                                                          4.0, 0.0, 0.0),
+                                                      width:
+                                                      MediaQuery.of(context).size.width * 0.24,
+                                                      height: 14.0,
+                                                      child: Text('Store State',
+                                                        style: kBodyTextGrey12.
+                                                        copyWith(color: Colors.black),)
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 48.0,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: const BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(12.0)),
+                                              color: Colors.white
+                                          ),
+                                          margin: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children:  [
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage(
+                                                      'assets/images/city_blue.png'),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8.0,),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text('Store City',
+                                                    style: TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w700
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                      margin: const EdgeInsets.fromLTRB(0.0,
+                                                          4.0, 0.0, 0.0),
+                                                      width:
+                                                      MediaQuery.of(context).size.width * 0.24,
+                                                      height: 14.0,
+                                                      child: Text('City',
+                                                        style: kBodyTextGrey12.
+                                                        copyWith(color: Colors.black),)
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 48.0,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: const BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(12.0)),
+                                              color: Colors.white
+                                          ),
+                                          margin: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children:  [
+                                              const SizedBox(
+                                                width: 18.0,
+                                                height: 18.0,
+                                                child: Image(
+                                                  image:
+                                                  AssetImage('assets/images/state_blue.png'),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8.0,),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text('Store',
+                                                    style: TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w700
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                      margin: const EdgeInsets.fromLTRB(0.0,
+                                                          4.0, 0.0, 0.0),
+                                                      width:
+                                                      MediaQuery.of(context).size.width * 0.24,
+                                                      height: 14.0,
+                                                      child: Text('Store',
+                                                        style: kBodyTextGrey12.
+                                                        copyWith(color: Colors.black),)
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Theme(
+                                              data: ThemeData(
+                                                unselectedWidgetColor: Colors.grey,
+                                              ),
+                                              child: Radio<bool>(
+                                                value: isSplit!,
+                                                groupValue: false,
+                                                activeColor: Colors.white,
+                                                onChanged: (bool? value) {
+                                                  isSplit = !value!;
+                                                },
+                                              ),
+                                            ),
+                                            Text('Split Sale',
+                                              style: kBodyTextWhiteBold17.copyWith(color: Colors.white),)
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.fromLTRB(12.0,
+                                          12.0, 12.0, 0.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: const [
+                                          Text('Product Information',
+                                              style: kHeadline22),
+                                          Text('\$0',
+                                              style: kHeadline22)
+                                        ],
+                                      ),
+                                    ),
+                                    const Divider(
+                                        color: Colors.white
+                                    ),
+                                    GestureDetector(
+                                      onTap: (){
+                                        showDialog(context: context,
+                                            builder: (context)
+                                            {
+                                              return Dialog(//  add clipBehavior
+                                                child: Container(
+                                                  height: 180.0,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                      },
+                                      child: Container(
+                                        height: 54.0,
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(12.0)),
+                                            color: Colors.white
+                                        ),
+                                        margin: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children:  [
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/name-ic.png'),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const Text('Name',
+                                                  style: TextStyle (
+                                                      color: Colors.black,
+                                                      fontSize: 14.0,
+                                                      fontWeight: FontWeight.w700
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets.fromLTRB(0.0,
+                                                      4.0, 0.0, 0.0),
+                                                  width:
+                                                  MediaQuery.of(context).size.width * 0.56,
+                                                  height: 18.0,
+                                                  child: Text('Name',
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                  ),
+                                                  /*TextField (
+                                                      style: kBodyTextGrey15.
+                                                      copyWith(color: Colors.black),
+                                                      keyboardType: TextInputType.text,
+                                                      textInputAction: TextInputAction.next,
+                                                      decoration: const
+                                                      InputDecoration.collapsed(
+                                                        hintText: 'Name',
+                                                        hintStyle: kBodyTextGrey15,
+                                                        border: InputBorder.none,
+                                                      ),
+                                                    ),*/
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/drop-down-ic.png'),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: (){
+                                        showDialog(context: context,
+                                            builder: (context)
+                                            {
+                                              return Dialog(//  add clipBehavior
+                                                child: Container(
+                                                  height: 180.0,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: const Text('Username',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle (
+                                                            color: Colors.black,
+                                                            fontSize: 17.0,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                      },
+                                      child: Container(
+                                        height: 54.0,
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(12.0)),
+                                            color: Colors.white
+                                        ),
+                                        margin: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children:  [
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/product-ic.png'),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const Text('Product',
+                                                  style: TextStyle (
+                                                      color: Colors.black,
+                                                      fontSize: 14.0,
+                                                      fontWeight: FontWeight.w700
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets.fromLTRB(0.0,
+                                                      4.0, 0.0, 0.0),
+                                                  width:
+                                                  MediaQuery.of(context).size.width * 0.56,
+                                                  height: 18.0,
+                                                  child: Text('Product',
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                  ),
+                                                  /*TextField (
+                                                      style: kBodyTextGrey15.
+                                                      copyWith(color: Colors.black),
+                                                      keyboardType: TextInputType.text,
+                                                      textInputAction: TextInputAction.next,
+                                                      decoration: const
+                                                      InputDecoration.collapsed(
+                                                        hintText: 'Product',
+                                                        hintStyle: kBodyTextGrey15,
+                                                        border: InputBorder.none,
+                                                      ),
+                                                    ),*/
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/drop-down-ic.png'),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 54.0,
+                                      padding: const EdgeInsets.all(8.0),
+                                      decoration: const BoxDecoration(
+                                        /*border: Border(
+                                            top: BorderSide(width: 1.0, color: Colors.black),
+                                            bottom: BorderSide(width: 1.0, color: Colors.black),
+                                            left: BorderSide(width: 1.0, color: Colors.black),
+                                            right: BorderSide(width: 1.0, color: Colors.black),
+                                          ),*/
+                                          borderRadius:
+                                          BorderRadius.all(Radius.circular(12.0)),
+                                          color: Colors.white
+                                      ),
+                                      margin: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children:  [
+                                          const SizedBox(
+                                            width: 18.0,
+                                            height: 18.0,
+                                            child: Image(
+                                              image:
+                                              AssetImage('assets/images/invoice_number-ic.png'),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8.0,),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Text('Delivered invoice number',
+                                                style: TextStyle (
+                                                    color: Colors.black,
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.w700
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: const EdgeInsets.fromLTRB(0.0,
+                                                    4.0, 0.0, 0.0),
+                                                width:
+                                                MediaQuery.of(context).size.width * 0.60,
+                                                height: 18.0,
+                                                child: TextField (
+                                                  style: kBodyTextGrey15.
+                                                  copyWith(color: Colors.black),
+                                                  keyboardType: TextInputType.text,
+                                                  textInputAction: TextInputAction.next,
+                                                  decoration: const
+                                                  InputDecoration.collapsed(
+                                                    hintText: 'Delivered invoice number',
+                                                    hintStyle: kBodyTextGrey15,
+                                                    border: InputBorder.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        showDatePicker(
+                                            context: context,
+                                            initialDate: _selectedDate!,
+                                            firstDate: DateTime(1950),
+                                            lastDate: DateTime
+                                                .now())
+                                            .then((pickedDate) {
+                                          if (pickedDate == null) {
+                                            //if user tap cancel then this function will stop
+                                            return;
+                                          }
+                                          //setState(() {
+                                          //for rebuilding the ui
+                                          context.read<DateTimeBloc>().add(
+                                              _DateTime(pickedDate));
+                                          _selectedDate = pickedDate;
+                                          print("pickedDate:: ${pickedDate}");
+                                          //});
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 54.0,
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(12.0)),
+                                            color: Colors.white
+                                        ),
+                                        margin: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children:  [
+                                            const SizedBox(
+                                              width: 18.0,
+                                              height: 18.0,
+                                              child: Image(
+                                                image:
+                                                AssetImage('assets/images/invoice_date-ic.png'),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const Text('Invoice Date',
+                                                  style: TextStyle (
+                                                      color: Colors.black,
+                                                      fontSize: 14.0,
+                                                      fontWeight: FontWeight.w700
+                                                  ),
+                                                ),
+
+                                                Container(
+                                                  margin: const EdgeInsets.fromLTRB(0.0,
+                                                      4.0, 0.0, 0.0),
+                                                  width: MediaQuery.of(context).size.width * 0.60,
+                                                  height: 18.0,
+                                                  child: BlocBuilder<DateTimeBloc, DateTimeState> (
+                                                      builder: (context, date) {
+                                                        final value = context.watch<DateTimeBloc>();
+                                                        return Text('${date.slectedDate}',
+                                                          style: const TextStyle (
+                                                              color: Colors.black,
+                                                              fontSize: 14.0,
+                                                              fontWeight: FontWeight.w400
+                                                          ),
+                                                        );
+                                                      }),
+                                                  /*TextField (
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                    keyboardType: TextInputType.text,
+                                                    textInputAction: TextInputAction.next,
+                                                    decoration: const
+                                                    InputDecoration.collapsed(
+                                                      hintText: 'Invoice Date',
+                                                      hintStyle: kBodyTextGrey15,
+                                                      border: InputBorder.none,
+                                                    ),
+                                                  ),*/
+                                                ),
+                                                ////////
+                                                /*Container(
+                                                  margin: const EdgeInsets.fromLTRB(0.0,
+                                                      4.0, 0.0, 0.0),
+                                                  width:
+                                                  MediaQuery.of(context).size.width * 0.60,
+                                                  height: 18.0,
+                                                  child: Text('${dateFormat.format(_selectedDate!)}',
+                                                    style: const TextStyle (
+                                                        color: Colors.black,
+                                                        fontSize: 14.0,
+                                                        fontWeight: FontWeight.w400
+                                                    ),
+                                                  ),
+                                                  */
+                                                /*TextField (
+                                                    style: kBodyTextGrey15.
+                                                    copyWith(color: Colors.black),
+                                                    keyboardType: TextInputType.text,
+                                                    textInputAction: TextInputAction.next,
+                                                    decoration: const
+                                                    InputDecoration.collapsed(
+                                                      hintText: 'Invoice Date',
+                                                      hintStyle: kBodyTextGrey15,
+                                                      border: InputBorder.none,
+                                                    ),
+                                                  ),*//*
+                                                ),*/
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 54.0,
+                                      padding: const EdgeInsets.all(8.0),
+                                      decoration: const BoxDecoration(
+                                        /*border: Border(
+                                            top: BorderSide(width: 1.0, color: Colors.black),
+                                            bottom: BorderSide(width: 1.0, color: Colors.black),
+                                            left: BorderSide(width: 1.0, color: Colors.black),
+                                            right: BorderSide(width: 1.0, color: Colors.black),
+                                          ),*/
+                                          borderRadius:
+                                          BorderRadius.all(Radius.circular(12.0)),
+                                          color: Colors.white
+                                      ),
+                                      margin: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children:  [
+                                          const SizedBox(
+                                            width: 18.0,
+                                            height: 18.0,
+                                            child: Image(
+                                              image:
+                                              AssetImage('assets/images/quantity-ic.png'),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8.0,),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Text('Quantity shipped',
+                                                style: TextStyle (
+                                                    color: Colors.black,
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.w700
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: const EdgeInsets.fromLTRB(0.0,
+                                                    4.0, 0.0, 0.0),
+                                                width:
+                                                MediaQuery.of(context).size.width * 0.60,
+                                                height: 18.0,
+                                                child: TextField (
+                                                  style: kBodyTextGrey15.
+                                                  copyWith(color: Colors.black),
+                                                  keyboardType: TextInputType.text,
+                                                  textInputAction: TextInputAction.next,
+                                                  decoration: const
+                                                  InputDecoration.collapsed(
+                                                    hintText: 'Quantity shipped',
+                                                    hintStyle: kBodyTextGrey15,
+                                                    border: InputBorder.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 42.0,
+                                          decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(24.0)),
+                                            color: kButtonColor,
+                                          ),
+                                          margin: const EdgeInsets.fromLTRB(0.0, 8.0, 4.0, 0.0),
+                                          padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
+                                          child: TextButton(
+                                            style: ButtonStyle(
+                                              overlayColor:
+                                              MaterialStateProperty.resolveWith(
+                                                    (states) => Colors.black12,
+                                              ),
+                                            ),
+                                            onPressed: (){},
+                                            child: Text(
+                                              'Save & Add New',
+                                              style: kBodyTextWhite.copyWith(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 42.0,
+                                          width: MediaQuery.of(context).size.width * 0.30,
+                                          margin: const EdgeInsets.fromLTRB(4.0, 8.0, 0.0, 0.0),
+                                          padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
+                                          decoration: const BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(24.0)),
+                                            color: kBackgroundColor,
+                                          ),
+                                          child: TextButton(
+                                            style: ButtonStyle(
+                                              overlayColor:
+                                              MaterialStateProperty.resolveWith(
+                                                    (states) => Colors.black12,
+                                              ),
+                                            ),
+                                            onPressed: (){},
+                                            child: Text(
+                                              'Save',
+                                              style: kBodyTextWhite.copyWith(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 8.0,)
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+              }
+        ),
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/dashboard-img.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 0.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [//profile-ic.png
+                                ClipOval(
+                                  child: SizedBox.fromSize(
+                                    size: const Size.fromRadius(48),
+                                    // Image radius
+                                    child: Image.asset(
+                                        "assets/images/dummy.jpg"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            const Text(
+                              '-',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            Container(
+                              width: 200.0,
+                              decoration: const BoxDecoration(
+                                color: kTextColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(80.0)),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                    style: ButtonStyle(
+                                      overlayColor:
+                                          MaterialStateProperty.resolveWith(
+                                        (states) => Colors.black12,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pushNamed(EDITPROFILE_SCREEN);
+                                    },
+                                    child: const Text(
+                                      'Profile',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                  const Text(
+                                    ' / ',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17.0,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  TextButton(
+                                    style: ButtonStyle(
+                                      overlayColor:
+                                          MaterialStateProperty.resolveWith(
+                                        (states) => Colors.black12,
+                                      ),
+                                    ),
+                                    onPressed: () {},
+                                    child: const Text(
+                                      'Sign Out',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin:
+                                  const EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                              decoration: const BoxDecoration(
+                                color: kTextColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12.0)),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Text(
+                                              '0',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 32.0,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 24.0),
+                                              child: SizedBox(
+                                                  width: 24.0,
+                                                  child: Image.asset(
+                                                      "assets/images/dollar-ic.png")),
+                                            ),
+                                          ],
+                                        ),
+                                        const Text(
+                                          'Total Balance',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 1.0,
+                                    height: 48.0,
+                                    color: Colors.white,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            const Text(
+                                              '0',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 32.0,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 24.0),
+                                              child: SizedBox(
+                                                  width: 24.0,
+                                                  child: Image.asset(
+                                                      "assets/images/dollar-ic.png")),
+                                            ),
+                                          ],
+                                        ),
+                                        const Text(
+                                          'Remaining Funds',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 16.0),
+                              child: Text(
+                                'Here is a summary of your account',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: kButtonColor,
+                                    fontSize: 21.0,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.of(context).pushNamed(CLAIMDETAIL_SCREEN);
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.fromLTRB(
+                                        0.0, 16.0, 0.0, 0.0),
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 7,
+                                          offset: Offset(0, 3), // changes position of shadow
+                                        ),
+                                      ],
+                                      color: Colors.white,
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(16.0)),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                  width: 32.0,
+                                                  child: Image.asset(
+                                                      "assets/images/invoice-ic.png")),
+                                              const SizedBox(
+                                                height: 4.0,),
+                                              const Text(
+                                                'Invoice Number',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                    FontWeight.w600),
+                                              ),
+                                              const SizedBox(
+                                                height: 4.0,),
+                                              Text(
+                                                '0',
+                                                style: TextStyle(
+                                                    color: kTextGreyFill,
+                                                    fontSize: 17.0,
+                                                    fontWeight:
+                                                    FontWeight.w400),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 1.0,
+                                          height: 30.0,
+                                          color: kTextGreyFill,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                  width: 32.0,
+                                                  child: Image.asset(
+                                                      "assets/images/amount-ic.png")),
+                                              const SizedBox(
+                                                height: 4.0,),
+                                              const Text(
+                                                'Amount',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                    FontWeight.w600),
+                                              ),
+                                              const SizedBox(
+                                                height: 4.0,),
+                                              Text(
+                                                '0',
+                                                style: TextStyle(
+                                                    color: kTextGreyFill,
+                                                    fontSize: 17.0,
+                                                    fontWeight:
+                                                    FontWeight.w400),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                            width: 54.0,
+                                            padding: const EdgeInsets.all(12.0),
+                                            decoration: const BoxDecoration (
+                                              color: kButtonColor,
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(32.0)),
+                                            ),
+                                            child: Image.asset(
+                                                "assets/images/approved-ic.png")),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.fromLTRB(
+                                      0.0, 16.0, 0.0, 0.0),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                    color: Colors.white,
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(16.0)),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                                width: 32.0,
+                                                child: Image.asset(
+                                                    "assets/images/invoice-ic.png")),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            const Text(
+                                              'Invoice Number',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16.0,
+                                                  fontWeight:
+                                                  FontWeight.w600),
+                                            ),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            Text(
+                                              '0',
+                                              style: TextStyle(
+                                                  color: kTextGreyFill,
+                                                  fontSize: 17.0,
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 1.0,
+                                        height: 30.0,
+                                        color: kTextGreyFill,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                                width: 32.0,
+                                                child: Image.asset(
+                                                    "assets/images/reason.png")),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            const Text(
+                                              'Reason',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16.0,
+                                                  fontWeight:
+                                                  FontWeight.w600),
+                                            ),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            Text(
+                                              '0',
+                                              style: TextStyle(
+                                                  color: kTextGreyFill,
+                                                  fontSize: 17.0,
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                          width: 54.0,
+                                          padding: const EdgeInsets.all(12.0),
+                                          decoration: const BoxDecoration (
+                                            color: Colors.red,
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(32.0)),
+                                          ),
+                                          child: Image.asset(
+                                              "assets/images/rejected-ic.png")),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.fromLTRB(
+                                      0.0, 16.0, 0.0, 0.0),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(16.0)),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                                width: 32.0,
+                                                child: Image.asset(
+                                                    "assets/images/invoice-ic.png")),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            const Text(
+                                              'Invoice Number',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16.0,
+                                                  fontWeight:
+                                                  FontWeight.w600),
+                                            ),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            Text(
+                                              '0',
+                                              style: TextStyle(
+                                                  color: kTextGreyFill,
+                                                  fontSize: 17.0,
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 1.0,
+                                        height: 30.0,
+                                        color: kTextGreyFill,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                                width: 32.0,
+                                                child: Image.asset(
+                                                    "assets/images/amount-ic.png")),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            const Text(
+                                              'Amount',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16.0,
+                                                  fontWeight:
+                                                  FontWeight.w600),
+                                            ),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            Text(
+                                              '0',
+                                              style: TextStyle(
+                                                  color: kTextGreyFill,
+                                                  fontSize: 17.0,
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                          width: 54.0,
+                                          padding: const EdgeInsets.all(12.0),
+                                          decoration: const BoxDecoration (
+                                            color: kButtonColor,
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(32.0)),
+                                          ),
+                                          child: Image.asset(
+                                              "assets/images/approved-ic.png")),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.fromLTRB(
+                                      0.0, 16.0, 0.0, 0.0),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                    color: Colors.white,
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(16.0)),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                                width: 32.0,
+                                                child: Image.asset(
+                                                    "assets/images/invoice-ic.png")),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            const Text(
+                                              'Invoice Number',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16.0,
+                                                  fontWeight:
+                                                  FontWeight.w600),
+                                            ),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            Text(
+                                              '0',
+                                              style: TextStyle(
+                                                  color: kTextGreyFill,
+                                                  fontSize: 17.0,
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 1.0,
+                                        height: 30.0,
+                                        color: kTextGreyFill,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                                width: 32.0,
+                                                child: Image.asset(
+                                                    "assets/images/amount-ic.png")),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            const Text(
+                                              'Amount',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16.0,
+                                                  fontWeight:
+                                                  FontWeight.w600),
+                                            ),
+                                            const SizedBox(
+                                              height: 4.0,),
+                                            Text(
+                                              '0',
+                                              style: TextStyle(
+                                                  color: kTextGreyFill,
+                                                  fontSize: 17.0,
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                          width: 54.0,
+                                          padding: const EdgeInsets.all(12.0),
+                                          decoration: const BoxDecoration (
+                                            color: kButtonColor,
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(32.0)),
+                                          ),
+                                          child: Image.asset(
+                                              "assets/images/approved-ic.png")),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 32.0,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*
+  TextField (
+  style: kBodyTextGrey12.
+  copyWith(color: Colors.black),
+  keyboardType: TextInputType.text,
+  textInputAction: TextInputAction.next,
+  decoration: const
+  InputDecoration.collapsed(
+  hintText: 'Store State',
+  hintStyle: kBodyTextGrey12,
+  border: InputBorder.none,
+  ),
+  ),*/
