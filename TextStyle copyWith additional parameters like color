@@ -1,0 +1,11 @@
+const kBodyTextWhite17 =TextStyle (
+color: Colors.white,
+fontSize: 17.0,
+);
+
+Use::
+Text(
+  'Save',
+  style: kBodyTextWhite.copyWith(
+    color: Colors.white),
+   ),
