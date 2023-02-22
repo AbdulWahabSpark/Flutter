@@ -1,0 +1,42 @@
+****Constants
+
+
+// Strings
+String SPLASH_SCREEN='SPLASH_SCREEN';
+String HOME_SCREEN='HOME_SCREEN';
+String LOGIN_SCREEN='LOGIN_SCREEN';
+String DASHBOARD_SCREEN='DASHBOARD_SCREEN';
+String WELCOME_SCREEN='WELCOME_SCREEN';
+String CLAIMDETAIL_SCREEN='CLAIMDETAIL_SCREEN';
+String REGISTER1_SCREEN='REGISTER1_SCREEN';
+String REGISTER2_SCREEN='REGISTER2_SCREEN';
+String REGISTER3_SCREEN='REGISTER3_SCREEN';
+String REGISTER4_SCREEN='REGISTER4_SCREEN';
+String REGISTER5_SCREEN='REGISTER5_SCREEN';
+String EDITPROFILE_SCREEN='EDITPROFILE_SCREEN';
+String MovieList_SCREEN='MovieList';
+
+
+***Routes
+
+MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const SplashScreen(),
+        routes: <String, WidgetBuilder>{
+          SPLASH_SCREEN: (BuildContext context) => const SplashScreen(),
+          WELCOME_SCREEN: (BuildContext context) => WelcomePage(),
+          LOGIN_SCREEN: (BuildContext context) => SignInPage(),
+          DASHBOARD_SCREEN: (BuildContext context) => const DashboardPage(),
+          CLAIMDETAIL_SCREEN: (BuildContext context) => ClaimDetailPage(),
+          REGISTER1_SCREEN: (BuildContext context) => Register1Page(),
+          REGISTER2_SCREEN: (BuildContext context) => Register2Page(),
+          REGISTER3_SCREEN: (BuildContext context) => Register3Page(),
+          REGISTER4_SCREEN: (BuildContext context) => Register4Page(),
+          REGISTER5_SCREEN: (BuildContext context) => Register5Page(),
+          EDITPROFILE_SCREEN: (BuildContext context) => EditProfilePage(),
+          MovieList_SCREEN: (BuildContext context) => MovieList(),
+        },
+      ),
