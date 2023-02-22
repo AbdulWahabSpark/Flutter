@@ -1,0 +1,5 @@
+decoration: const BoxDecoration(
+                                color: kTextColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(80.0)),
+                              ),
