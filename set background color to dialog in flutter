@@ -1,0 +1,32 @@
+
+You can now use backgroundColor property of AlertDialog to change the color.
+
+AlertDialog(
+  backgroundColor: Colors.orange,
+  ...
+)
+
+**************
+You can do that without using Builder.
+
+Here is the example.
+
+@override
+Widget build(BuildContext context) {
+  return RaisedButton(
+    onPressed: () {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Theme(
+            data: Theme.of(context).copyWith(dialogBackgroundColor: Colors.orange),
+            child: AlertDialog(
+              title: Text("Dialog Title"),
+            ),
+          );
+        },
+      );
+    },
+    child: Text("Show dialog"),
+  );
+}
