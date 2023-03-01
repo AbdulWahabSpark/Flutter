@@ -1,0 +1,23 @@
+import 'package:image_picker/image_picker.dart';
+
+final ImagePicker imagePicker = ImagePicker();
+List<XFile>? imageFileList = [];
+
+void selectImages() async {
+    final List<XFile>? selectedImages = await
+    imagePicker.pickMultiImage();
+    if (selectedImages!.isNotEmpty) {
+      imageFileList!.addAll(selectedImages);
+    }
+    print("Image List Length:" + imageFileList!.length.toString());
+    setState((){});
+  }
+  
+  
+  
+  GestureDetector(
+    onTap: (){
+        selectImages();
+    },
+    child: Text('Select Image')
+    );
