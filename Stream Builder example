@@ -1,0 +1,354 @@
+//Login Page
+import 'package:ashleysleepelite/models/item_model.dart';
+import 'package:flutter/material.dart';
+import '../blocs/movies_bloc.dart';
+import '../utils/constants.dart';
+import '../widgets/text_button.dart';
+import '../widgets/text_field.dart';
+
+class SignInPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    return SafeArea(
+      child: Scaffold(
+        body: StreamBuilder(
+            stream: bloc.userLogin,
+            builder: (context, AsyncSnapshot<UserModel> snapshot) {
+              if (snapshot.hasData) {
+                  print(snapshot.data);
+                  // Navigator.of(context).pushReplacementNamed(DASHBOARD_SCREEN);
+                  return const Text("");
+              }else{
+                return Container (
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/bg-view.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height - 20,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(30.0,
+                                    180.0, 30.0, 0.0),
+                                child: const Image(
+                                  image: AssetImage('assets/images/logo.png'),
+                                ),
+                              ),
+                              //Fields Area
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(
+                                    30.0,
+                                    60.0,
+                                    30.0,
+                                    0.0),
+                                child: Flexible(
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children:  [
+                                          const SizedBox(
+                                            width: 60.0,
+                                            height: 60.0,
+                                            child: Image(
+                                              image:
+                                              AssetImage('assets/images/user-ic.png'),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 12.0,),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                                                child:  Text('Username',
+                                                  style: TextStyle (
+                                                    color: Colors.white,
+                                                    fontSize: 17.0,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                                                width: MediaQuery.of(context).size.width * 0.65,
+                                                height: 48.0,
+                                                child: const MyTextField(
+                                                  hintText: 'Name',
+                                                  inputType: TextInputType.name,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 4.0,
+                                      ),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 2.0,
+                                        child: const Image(
+                                          image:
+                                          AssetImage('assets/images/bottom_border.png'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16.0,),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(
+                                    30.0,
+                                    16.0,
+                                    30.0,
+                                    0.0),
+                                child: Flexible(
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children:  [
+                                          const SizedBox(
+                                            width: 60.0,
+                                            height: 60.0,
+                                            child: Image(
+                                              image:
+                                              AssetImage('assets/images/lock.png'),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 12.0,),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                                                child:  Text('Password',
+                                                  style: TextStyle (
+                                                    color: Colors.white,
+                                                    fontSize: 17.0,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                                                width: MediaQuery.of(context).size.width * 0.65,
+                                                height: 48.0,
+                                                child: const MyPasswordField(
+                                                  hintText: '********',
+                                                  inputType: TextInputType.text,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 4.0,
+                                      ),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 2.0,
+                                        child: const Image(
+                                          image:
+                                          AssetImage('assets/images/bottom_border.png'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                margin: const EdgeInsets.fromLTRB(30.0,
+                                    36.0, 30.0, 16.0),
+                                child: MyTextButton(
+                                  buttonName: 'Login',
+                                  onTap: () {
+                                    bloc.fetchLoggedInUser('test1', 'testing12345');
+
+                                    // Navigator.of(context).pushReplacementNamed(DASHBOARD_SCREEN);
+                                  },
+                                  bgColor: kButtonColor,
+                                  textColor: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                          //Bottom Section
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            margin: const EdgeInsets.fromLTRB(30.0,
+                                0.0, 30.0, 16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: const [
+                                    Text('Don’t have access to account?  ',
+                                      style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: kTextColor
+                                      ),),
+                                    Text('Forgot Password',
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: kTextColor,
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 6.0,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Text('Don’t have an account ?   ',
+                                      style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: kTextColor
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: (){
+                                        Navigator.
+                                        of(context).
+                                        pushReplacementNamed(REGISTER1_SCREEN);
+                                      },
+                                      child:  const Text('Signup',
+                                        style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: kTextColor,
+                                            fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }
+
+              //return const Center(child: CircularProgressIndicator());
+            },
+            ),
+      ),
+    );
+  }
+}
+
+/*
+
+* */
+
+
+
+//Bloc Page
+import '../models/item_model.dart';
+import '../repositories/repository.dart';
+import 'package:rxdart/rxdart.dart';
+
+class MoviesBloc {
+  final _repository = Repository();
+  final _userFetcher = PublishSubject<UserModel>();
+  final _moviesFetcher = PublishSubject<ItemModel>();
+
+  Stream<UserModel> get userLogin => _userFetcher.stream;
+  Stream<ItemModel> get allMovies => _moviesFetcher.stream;
+
+  fetchLoggedInUser(String username,String password) async {
+    UserModel userModel = await _repository.fetchUserLogin(username, password);
+    _userFetcher.sink.add(userModel);
+  }
+  fetchAllMovies() async {
+    ItemModel itemModel = await _repository.fetchAllMovies();
+    _moviesFetcher.sink.add(itemModel);
+  }
+
+  dispose() {
+    _moviesFetcher.close();
+    _userFetcher.close();
+  }
+}
+final bloc = MoviesBloc();
+
+
+//Repository
+class Repository {
+  final apiProvider = ApiProvider();
+  Future<ItemModel> fetchAllMovies() =>
+      apiProvider.fetchMovieList();
+  Future<UserModel> fetchUserLogin(username, password) =>
+      apiProvider.fetchUserLogin(username, password);
+}
+
+
+//API Provider
+
+import 'dart:async';
+import 'package:http/http.dart' show Client;
+import 'dart:convert';
+import '../models/item_model.dart';
+
+class ApiProvider {
+  Client client = Client();
+
+  Future<ItemModel> fetchMovieList() async {
+    Uri? uri = Uri.parse("https://api.ashleysleepuniversity.com/v1//user/login");
+    final response = await client.get(uri);
+    print(response.body.toString());
+    if (response.statusCode == 200) {
+      return ItemModel.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+  Future<UserModel> fetchUserLogin(String username, String password) async {
+    Uri? uri = Uri.parse("https://api.ashleysleepelite.com/v1/user/login");
+    Map<String, String> body = {
+      'username': username,
+      'password': password
+    };
+    final response = await client.post(uri, body: body);
+
+    /*Map<String, String> body = {
+      'name': 'doodle',
+      'color': 'blue',
+      'homeTeam': json.encode(
+        {'team': 'Team A'},
+      ),
+      'awayTeam': json.encode(
+        {'team': 'Team B'},
+      ),
+    };*/
+    //print(response.body.toString());
+    if (response.statusCode == 200) {
+      return UserModel.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+}
