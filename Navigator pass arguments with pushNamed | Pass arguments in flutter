@@ -1,0 +1,19 @@
+No need for onGenerateRoute. Simply use
+var exampleArgument = 'example string';
+
+Navigator.pushNamed(
+    context,
+    '/otherscreen',
+    arguments: {'exampleArgument': exampleArgument},
+);
+
+and extract the arguments as follows:
+
+@override
+Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
+
+    print(arguments['exampleArgument']);
+
+    return Scaffold(...);
+}
